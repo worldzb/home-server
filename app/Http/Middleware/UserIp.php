@@ -18,12 +18,12 @@ class UserIp
     public function handle($request, Closure $next)
     {
         //dd($request);
-        /*DB::table('user_ip')->insert([
+        DB::table('user_ip')->insert([
             'ip'=>$request->ip(),
             'remember_token'=>$request->path(),
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s'),
-        ]);*/
+        ]);
         return $next($request);
     }
 }
