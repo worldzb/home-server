@@ -13,3 +13,4 @@
 
 Route::get('/', "IndexController@index");
 Route::get('/r','IndexController@redisTest');
+Route::get('/m','IndexController@modelTest');

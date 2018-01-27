@@ -4,13 +4,14 @@
  * @Author: worldzb
  * @Date:   2018-01-16 10:52:55
  * @Last Modified by:   worldzb
- * @Last Modified time: 2018-01-26 10:50:51
+ * @Last Modified time: 2018-01-27 15:51:46
  */
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Qcloud\Cos\Client;
 use Illuminate\Support\Facades\Redis;
+use App\Models\imageInfo;
 
 class IndexController extends Controller
 {
@@ -32,5 +33,10 @@ class IndexController extends Controller
     	Redis::set('name', 'Taylor');
     	$user = Redis::get('name');
        	dd($user);
+    }
+
+    public function modelTest(){
+        $image=new imageInfo();
+        dd($image);        
     }
 }
