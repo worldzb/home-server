@@ -17,7 +17,13 @@ class CreateImageInfosTable extends Migration
             $table->increments('id');
             $table->string('imgName');
             $table->string('url');
-            $table->string('CosUrl');
+            $table->string('cosUrl');
+            $table->char('addMan',10);
+            $table->string('type');
+            $table->string('classify');
+            $table->string('remark');
+            $table->string('liked');
+            $table->string('comment');
             $table->timestamps();
         });
     }
