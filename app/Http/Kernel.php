@@ -10,7 +10,7 @@ class Kernel extends HttpKernel
      * The application's global HTTP middleware stack.
      *
      * These middleware are run during every request to your application.
-     *
+     * 全局
      * @var array
      */
     protected $middleware = [
@@ -19,11 +19,12 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\UserIp::class,
+        \App\Http\Middleware\AccessControlAllowOrigin::class,//跨域访问
     ];
 
     /**
      * The application's route middleware groups.
-     *
+     * 群组
      * @var array
      */
     protected $middlewareGroups = [
@@ -31,15 +32,16 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
-            // \Illuminate\Session\Middleware\AuthenticateSession::class,
+            \Illuminate\Session\Middleware\AuthenticateSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \App\Http\Middleware\VerifyCsrfToken::class,
+            // \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
 
         'api' => [
             'throttle:60,1',
             'bindings',
+            //'spa'//跨域访问
         ],
     ];
 
@@ -47,7 +49,7 @@ class Kernel extends HttpKernel
      * The application's route middleware.
      *
      * These middleware may be assigned to groups or used individually.
-     *
+     * 路由
      * @var array
      */
     protected $routeMiddleware = [
@@ -57,5 +59,6 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        //'spa'=>\App\Http\Middleware\AccessControlAllowOrigin::class,//跨域访问
     ];
 }

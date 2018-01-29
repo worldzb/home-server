@@ -11,6 +11,13 @@
 |
 */
 
+
 Route::get('/', "IndexController@index");
 Route::get('/r','IndexController@redisTest');
 Route::get('/m','IndexController@modelTest');
+
+Route::any('/imgUpload','UploadController@imgUpload');
+
+Route::group([],function(){
+
+});

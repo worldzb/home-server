@@ -15,15 +15,15 @@ class CreateImageInfosTable extends Migration
     {
         Schema::create('image_infos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('imgName');
-            $table->string('url');
+            $table->string('imgName')->comment('图片名');
+            $table->string('url')->comment('可用url');
             $table->string('cosUrl');
-            $table->char('addMan',10);
-            $table->string('type');
-            $table->string('classify');
+            $table->string('addMan',10);
+            $table->string('type',5);
+            $table->string('classify',10);
             $table->string('remark');
-            $table->string('liked');
-            $table->string('comment');
+            $table->unsignedInteger('liked');
+            $table->unsignedInteger('comment');
             $table->timestamps();
         });
     }
