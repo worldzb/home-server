@@ -4,14 +4,15 @@
  * @Author: worldzb
  * @Date:   2018-01-16 10:52:55
  * @Last Modified by:   worldzb
- * @Last Modified time: 2018-01-27 15:51:46
+ * @Last Modified time: 2018-01-30 00:10:45
  */
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Qcloud\Cos\Client;
 use Illuminate\Support\Facades\Redis;
-use App\Models\imageInfo;
+use App\Models\ImageInfo;
+
 
 class IndexController extends Controller
 {
@@ -26,7 +27,7 @@ class IndexController extends Controller
     		//'timeout'=>60,
     	]);
     	//dd($client->listBuckets());
-    	dd($client->listObjects(array('Bucket'=>'lt-1253681650')));
+    	dd($client->listBuckets());
     }
 
     public function redisTest(){
@@ -36,7 +37,7 @@ class IndexController extends Controller
     }
 
     public function modelTest(){
-        $image=new imageInfo();
-        dd($image);        
+        $image=new ImageInfo();
+        var_dump($image->find(1));        
     }
 }
