@@ -4,8 +4,9 @@
  * @Author: worldzb
  * @Date:   2018-01-30 19:34:15
  * @Last Modified by:   worldzb
- * @Last Modified time: 2018-01-31 00:29:28
+ * @Last Modified time: 2018-01-31 16:24:06
  */
+
 namespace App\Helper;
 
 use Qcloud\Cos\Client;
@@ -13,16 +14,17 @@ use App\Models\ImageInfo;
 use Illuminate\Http\Request;
 
 /**
-* 
+* cos 操作类
 */
 class CosClient
 {
-	private $serverInfo;
-	private $bucketInfo;
-	private $request;
-	private $folder;
+	private $serverInfo;	// cos 服务器 信息
+	private $bucketInfo;	// bucket 信息
+	private $request;		//request 请求
+	private $folder; 		//cos 文件夹目录
+	private $instance; 		//cos client 实例
 
-	const bucket="home-1253681650";
+	const bucket="home-1253681650";	//包名称
 
 	/**
 	 * init info
@@ -41,6 +43,7 @@ class CosClient
 				'secretKey' => 	getenv('COS_SECRET')
 			],
 		];
+		$this->instance=new Client($this->serverInfo);
 	}
 
 	/**
@@ -50,6 +53,7 @@ class CosClient
 	private function getFileInfo(){
 		$file=[];
     	$file['date']=date('Y-m-d-H-i-s');
+    	
     	if($this->request->file('imgFile')){
     		$file['content']=$this->request->file('imgFile');
     		if(in_array(strtolower($file['content']->extension()),['jpeg','jpg','gif','gpeg','png','bmp','gif'])){
@@ -69,12 +73,11 @@ class CosClient
 	}
 
 	/**
-	 * 图片上传完成后写入数据库
+	 * 图片上传完成后写入数据库操作
 	 * @return [type] [description]
 	 */
 	private function writeToDB(Array $arrFileInfo){
 		$imageInfo=new imageInfo();
-
 		$imageInfo->imgName=$arrFileInfo['imgName'];
 		$imageInfo->url=$arrFileInfo['url'];
 		$imageInfo->cosUrl=$arrFileInfo['cosUrl'];
@@ -93,7 +96,7 @@ class CosClient
 	 */
 	public function upload(){
 		$file=$this->getFileInfo();
-		$Client=new Client($this->serverInfo);
+		$Client=$this->instance;
 		$result="";
 		try{
 			$result=$Client->putObject($this->bucketInfo);
@@ -101,14 +104,13 @@ class CosClient
 				'imgName'=>$file['content']->getClientOriginalName(),
 				'url'=>$result['ObjectURL'],
 				'cosUrl'=>'aaa',
-				'type'=>$file['fileType']
+				'type'=>$file['fileType'],
 			));
 		}catch(\Exception $e){
 			echo "$e\n";
 		}
 		return $result;
 	}
-
 }
 
 

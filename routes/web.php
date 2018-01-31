@@ -21,3 +21,11 @@ Route::any('/imgUpload','UploadController@imgUpload');
 Route::group([],function(){
 
 });
+
+Route::group(['prefix' => 'api/v1'], function(){
+	Route::get('/', "IndexController@index");
+	//Route::resource('lessons','LessonsController');
+});
+
+
+
