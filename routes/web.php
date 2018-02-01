@@ -16,6 +16,9 @@ Route::get('/', "IndexController@index")->middleware('apiAuth');
 Route::get('/r','IndexController@redisTest');
 Route::get('/m','IndexController@modelTest');
 
+Route::post('/imgUpload','UploadController@imgUpload');
+Route::get('/getDocList','NoteBookController@getNewDocList');
+
 
 
 /**
