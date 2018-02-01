@@ -4,7 +4,7 @@
  * @Author: worldzb
  * @Date:   2018-01-16 10:52:55
  * @Last Modified by:   worldzb
- * @Last Modified time: 2018-01-30 00:10:45
+ * @Last Modified time: 2018-02-01 09:19:26
  */
 namespace App\Http\Controllers;
 
@@ -38,6 +38,6 @@ class IndexController extends Controller
 
     public function modelTest(){
         $image=new ImageInfo();
-        var_dump($image->find(1));        
+        var_dump($image->find(1));
     }
 }

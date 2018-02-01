@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * @Author: worldzb
+ * @Date:   2018-01-29 13:22:36
+ * @Last Modified by:   worldzb
+ * @Last Modified time: 2018-02-01 10:07:00
+ */
+
+/**
+ * 用于测试时跨域请求的相应
+ */
+
 namespace App\Http\Middleware;
 
 use Closure;

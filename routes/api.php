@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,4 +16,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//Route::get('/m','IndexController@modelTest');
+Route::get('/v',function(){
+	return [
+		'api_name'=>'worldzb notebook api',
+		'version'=>"1.0.0",
+		'update_time'=>"2018-2-1",
+	];
+});
+
+Route::group(['prefix' => '/v1','middleware'=>'apiAuth'], function(){
+	Route::any('/','Api\BookApiController@help');
+	Route::get('/getBookList',"Api\BookApiController@getBookList");
+});

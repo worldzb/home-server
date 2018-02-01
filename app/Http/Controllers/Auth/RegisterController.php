@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -24,7 +24,7 @@ class RegisterController extends Controller
 
     /**
      * Where to redirect users after registration.
-     *
+     * 注册成功后的跳转地址
      * @var string
      */
     protected $redirectTo = '/home';
@@ -36,6 +36,8 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
+        //此处创建一个中间件，为什么？
+        //原因:guest是一个验证用户是否登录的中间件，如果登录，返回home
         $this->middleware('guest');
     }
 

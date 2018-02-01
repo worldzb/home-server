@@ -16,15 +16,14 @@ class Kernel extends HttpKernel
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
-        \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        \App\Http\Middleware\UserIp::class,
+        \App\Http\Middleware\TrimStrings::class,
         \App\Http\Middleware\AccessControlAllowOrigin::class,//跨域访问
     ];
 
     /**
      * The application's route middleware groups.
-     * 群组
+     * 中间件组 ，内置 web 和 api 两个组
      * @var array
      */
     protected $middlewareGroups = [
@@ -37,11 +36,13 @@ class Kernel extends HttpKernel
             // \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
-
         'api' => [
             'throttle:60,1',
             'bindings',
             //'spa'//跨域访问
+        ],
+        'apiAuth'=>[
+            'apiAuth'=>\App\Http\Middleware\ApiAuth::class, //api 门卫
         ],
     ];
 
@@ -59,6 +60,6 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        //'spa'=>\App\Http\Middleware\AccessControlAllowOrigin::class,//跨域访问
+        'spa'=>\App\Http\Middleware\AccessControlAllowOrigin::class,//跨域访问
     ];
 }

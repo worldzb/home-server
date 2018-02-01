@@ -12,20 +12,17 @@
 */
 
 
-Route::get('/', "IndexController@index");
+Route::get('/', "IndexController@index")->middleware('apiAuth');
 Route::get('/r','IndexController@redisTest');
 Route::get('/m','IndexController@modelTest');
 
-Route::any('/imgUpload','UploadController@imgUpload');
-
-Route::group([],function(){
-
-});
-
-Route::group(['prefix' => 'api/v1'], function(){
-	Route::get('/', "IndexController@index");
-	//Route::resource('lessons','LessonsController');
-});
 
 
+/**
+ * 图片上传
+ */
+Route::post('/imgUpload','UploadController@imgUpload');
 
+
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
