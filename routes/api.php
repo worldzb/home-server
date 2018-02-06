@@ -12,8 +12,17 @@ use Illuminate\Http\Request;
 |
 */
 
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::get('/',function(){
+	return [
+		'api_name'=>'worldzb notebook api',
+		'version'=>"1.0.0",
+		'update_time'=>"2018-2-1",
+	];
 });
 
 Route::get('/v',function(){
@@ -24,7 +33,11 @@ Route::get('/v',function(){
 	];
 });
 
+
+
 Route::group(['prefix' => '/v1','middleware'=>'apiAuth'], function(){
 	Route::any('/','Api\BookApiController@help');
+	Route::get('/getNewDoc',"Api\BookApiController@getNewDocList");
 	Route::get('/getBookList',"Api\BookApiController@getBookList");
+	Route::get('/getChapter/{id}','Api\BookApiController@getChapter');
 });
