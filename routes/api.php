@@ -34,10 +34,14 @@ Route::get('/v',function(){
 });
 
 
-
 Route::group(['prefix' => '/v1','middleware'=>'apiAuth'], function(){
 	Route::any('/','Api\BookApiController@help');
 	Route::get('/getNewDoc',"Api\BookApiController@getNewDocList");
 	Route::get('/getBookList',"Api\BookApiController@getBookList");
-	Route::get('/getChapter/{id}','Api\BookApiController@getChapter');
+	Route::get('/getChapter','Api\BookApiController@getChapter');
+	Route::get('/getContent','Api\BookApiController@getContent');
+	Route::get('/createBook','Api\BookApiController@createBook');
+	Route::get('/createChapter','Api\BookApiController@createChapter');
+	Route::get('/createNewDoc','Api\BookApiController@createNewDoc');
+	Route::get('/createDoc','Api\BookApiController@createDoc');
 });
